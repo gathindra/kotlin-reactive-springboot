@@ -1,0 +1,22 @@
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://localhost:15432/testDb
+    username: postgresUser
+    password: postgresPassword
+    pool:
+      enabled: true
+      max-size: 10
+  flyway:
+    user: postgresUser
+    password: postgresPassword
+    url: jdbc:postgresql://localhost:15432/testDb
+#    locations: classpath:db/migration
+
+springdoc:
+  swagger-ui:
+    path: /
+
+  logging:
+    level:
+      com.gathi.k: DEBUG
+
