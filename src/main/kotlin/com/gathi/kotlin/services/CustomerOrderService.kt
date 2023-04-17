@@ -65,16 +65,16 @@ class CustomerOrderService @Autowired constructor(
             ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
         logger.debug("Price {} for product id {}", productPrice, orderItem.productId)
         // Save the order item with the product price depending on the quantity
-        val orderItem = orderItemRepository
+        val updatedOrderItem = orderItemRepository
             .save(orderItem.copy(price = (productPrice * orderItem.quantity)).toOrderItemEntity())
             .toOrderItemDto()
 
-        logger.debug("Saved order item {}", orderItem)
+        logger.debug("Saved order item {}", updatedOrderItem)
 
         // Update the associated order total price
-        val updatedOrder = orderRepository.updateOrderTotalByOrderId(orderItem.orderId, orderItem.price)
+        val updatedOrder = orderRepository.updateOrderTotalByOrderId(updatedOrderItem.orderId, updatedOrderItem.price)
         logger.debug("Updated order {}", updatedOrder)
-        return orderItem
+        return updatedOrderItem
     }
 
 
